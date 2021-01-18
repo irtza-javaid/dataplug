@@ -120,7 +120,8 @@ class Api extends CI_Controller {
             }
             $html_file = '';
             if (file_exists('./assets/images/data/form_icons/' . $app_id . '/' . $file_name_html)) {
-                $html_file = FORM_IMG_DISPLAY_PATH . '../form_icons/' . $app_id . '/' . $file_name_html;
+                $html_file = FORM_IMG_DISPLAY_PATH . '../form_icons/' . 
+                $app_id . '/' . $file_name_html;
             }
 
             $released = $this->app_released_model->get_latest_released($app_id);
