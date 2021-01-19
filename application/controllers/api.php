@@ -178,7 +178,8 @@ class Api extends CI_Controller {
         $file_array [] = array(
             'form_id' => '0',
             'form_name' => 'noname',
-            'file_url' => base_url() . 'assets/android/app_resources/jquery-ui-autocomplete.js',
+            'file_url' => base_url() 
+                . 'assets/android/app_resources/jquery-ui-autocomplete.js',
             'file_name' => 'jquery-ui-autocomplete.js'
         );
  
@@ -226,7 +227,8 @@ class Api extends CI_Controller {
         $file_array [] = array(
             'form_id' => '0',
             'form_name' => 'noname',
-            'file_url' => base_url() . 'assets/android/app_resources/jquery.select-to-autocomplete.min.js',
+            'file_url' => base_url() . 'assets/android/
+                app_resources/jquery.select-to-autocomplete.min.js',
             'file_name' => 'jquery.select-to-autocomplete.min.js'
         );
    
@@ -262,17 +264,28 @@ class Api extends CI_Controller {
         if(isset($app_general_setting->has_geo_fencing)){
             
             $prefrences['IS_SECURE_APP']=($app_general_setting->secured_apk==1)?'YES':'NO';
-            $prefrences['showHighResOption']=($app_general_setting->high_resolution_image==1)?'YES':'NO';
-            $prefrences['PersistImagesOnDevice']=($app_general_setting->persist_images_on_device==1)?'YES':'NO';
-            $prefrences['BackgroundUpdate']=($app_general_setting->background_update==1)?'YES':'NO';
-            $prefrences['ForceUpdate']=($app_general_setting->force_update==1)?'YES':'NO';
-            $prefrences['EnableAutoTime']=($app_general_setting->enable_auto_time==1)?'YES':'NO';
-            $prefrences['TrackingStatus']=($app_general_setting->tracking_status==1)?'YES':'NO';
-            $prefrences['TrackingInterval']=(isset($app_general_setting->tracking_interval))?$app_general_setting->tracking_interval:'5';
-            $prefrences['TrackingDistance']=(isset($app_general_setting->tracking_distance))?$app_general_setting->tracking_distance:'100';
-            $prefrences['DebugTracking']=(isset($app_general_setting->debug_tracking) && $app_general_setting->debug_tracking == 1)?'YES':'NO';
-            $prefrences['hasGeoFencing']=(isset($app_general_setting->has_geo_fencing) && $app_general_setting->has_geo_fencing == 1)?'YES':'NO';
-            $prefrences['DebugGeoFencing']=(isset($app_general_setting->debug_geo_fencing) && $app_general_setting->debug_geo_fencing == 1)?'YES':'NO';
+            $prefrences['showHighResOption']=($app_general_setting->
+                                                high_resolution_image==1)?'YES':'NO';
+            $prefrences['PersistImagesOnDevice']=($app_general_setting->
+                                                persist_images_on_device==1)?'YES':'NO';
+            $prefrences['BackgroundUpdate']=($app_general_setting->
+                                                background_update==1)?'YES':'NO';
+            $prefrences['ForceUpdate']=($app_general_setting->
+                                                force_update==1)?'YES':'NO';
+            $prefrences['EnableAutoTime']=($app_general_setting->
+                                                enable_auto_time==1)?'YES':'NO';
+            $prefrences['TrackingStatus']=($app_general_setting->
+                                                tracking_status==1)?'YES':'NO';
+            $prefrences['TrackingInterval']=(isset($app_general_setting->
+                                                tracking_interval))?$app_general_setting->tracking_interval:'5';
+            $prefrences['TrackingDistance']=(isset($app_general_setting->
+                                                tracking_distance))?$app_general_setting->tracking_distance:'100';
+            $prefrences['DebugTracking']=(isset($app_general_setting->
+                                                debug_tracking) && $app_general_setting->debug_tracking == 1)?'YES':'NO';
+            $prefrences['hasGeoFencing']=(isset($app_general_setting->
+                                                has_geo_fencing) && $app_general_setting->has_geo_fencing == 1)?'YES':'NO';
+            $prefrences['DebugGeoFencing']=(isset($app_general_setting->
+                                                debug_geo_fencing) && $app_general_setting->debug_geo_fencing == 1)?'YES':'NO';
             //Get geoFence from App user table
             $prefrences['geoFence']="[{'lng':74.33375,'lat':31.50282},{'lng':72.32271,'lat':31.49976},{'lng':74.3286,'lat':31.48541},{'lng':74.3474,'lat':30.48577},{'lng':74.33764,'lat':34.5049}]";
             
@@ -286,7 +299,8 @@ class Api extends CI_Controller {
     }
 
     /**
-     * This function is also used for updating the android application when user click on refresh button that available on android application title bar.
+     * This function is also used for updating the android application when user 
+     * click on refresh button that available on android application title bar.
      * 
      * @return json
      * @author Zahid Nadeem <zahidiubb@yahoo.com>
@@ -296,11 +310,14 @@ class Api extends CI_Controller {
         $app_id = $_REQUEST ['app_id'];
         $imei_no = $_REQUEST ['imei_no'];
         $jsone_array = array();
-        $latest_release = $this->app_released_model->get_latest_released($app_id);
+        $latest_release = $this->app_released_model->
+                            get_latest_released($app_id);
         
-        $version_installed = $this->app_released_model->get_version_against_version_code($app_id,$version_code);
+        $version_installed = $this->app_released_model->
+                            get_version_against_version_code($app_id,$version_code);
         
-        $already_installed = $this->app_installed_model->get_app_installed($app_id, $imei_no);
+        $already_installed = $this->app_installed_model->
+                            get_app_installed($app_id, $imei_no);
 
         if ($already_installed) {
 
@@ -339,7 +356,18 @@ class Api extends CI_Controller {
 
         // Temp code for evaccs - Start
         //new version for evacc only update the specific imei
-//        $imei_array = array('865281025760638','863963024004108','357943061037149','357944061037147','354435054188099','862120024354527','863963020962283','863963020941048','863963020962481','863963020956806','863963020970708','863963020962275','866356021218457','862866027099515','862866027109728','355794061492707','356222070208939','863963020985607','863963020962747','863963020942285','860557023831363','863963020962671','863963020971144','863963024006137','864532028186531','863963023610939','863963023610954','863963024022092','863963024028115','863963024008117','353861060451976','353861060451976','863963023555621','863963023616316','863963023586709','863963023571420','863963023586972','863963023579407','863963023587822','863963023587145','863963023586170','863963023586279','863963023555050','863963023579563','863963023633345','869358028906693','863963023557213','863963023556579','863963023555860','352328071131675','863963023612133','863963023257905','865281025813742','863963023579449','355451509524845','863963024014362','359154050754672');        
+//        $imei_array = array('865281025760638','863963024004108','357943061037149',
+//'357944061037147','354435054188099','862120024354527','863963020962283','863963020941048',
+//'863963020962481','863963020956806','863963020970708','863963020962275','866356021218457',
+//'862866027099515','862866027109728','355794061492707','356222070208939','863963020985607',
+//'863963020962747','863963020942285','860557023831363','863963020962671','863963020971144',
+//'863963024006137','864532028186531','863963023610939','863963023610954','863963024022092',
+//'863963024028115','863963024008117','353861060451976','353861060451976','863963023555621',
+//'863963023616316','863963023586709','863963023571420','863963023586972','863963023579407',
+//'863963023587822','863963023587145','863963023586170','863963023586279','863963023555050',
+//'863963023579563','863963023633345','869358028906693','863963023557213','863963023556579',
+//'863963023555860','352328071131675','863963023612133','863963023257905','865281025813742',
+//'863963023579449','355451509524845','863963024014362','359154050754672');        
 ////$imei_array = array('863963024004108','354435054188099');
 //        if($app_id == '9'){
 //            if(in_array($imei_no, $imei_array)){
@@ -441,7 +469,9 @@ class Api extends CI_Controller {
         
         
         //Stop activity saving if already saved
-//        $activity_aready_exist = $this->db->get_where('mobile_activity_log', array('form_id' => $form_id, 'imei_no' => $imei_no,'form_data' => $_REQUEST['form_data']))->row_array();
+//        $activity_aready_exist = $this->db->get_where('mobile_activity_log',
+//           array('form_id' => $form_id, 'imei_no' => $imei_no,'form_data' => 
+//              $_REQUEST['form_data']))->row_array();
 //        if ($activity_aready_exist) {
 //            $jsone_array = array(
 //                'success' => 'This activity already submitted.'
@@ -449,7 +479,9 @@ class Api extends CI_Controller {
 //            echo json_encode($jsone_array);
 //            exit();
 //        }
-//        $activity_aready_exist = $this->db->get_where('zform_'.$form_id, array('form_id' => $form_id, 'imei_no' => $imei_no,'activity_datetime' => $activity_datetime))->row_array();
+//        $activity_aready_exist = $this->db->
+//          get_where('zform_'.$form_id, array('form_id' => $form_id, 'imei_no' =>
+//           $imei_no,'activity_datetime' => $activity_datetime))->row_array();
 //        if ($activity_aready_exist) {
 //            $jsone_array = array(
 //                'success' => 'This activity already submitted.'
