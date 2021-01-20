@@ -441,7 +441,8 @@ class Api extends CI_Controller {
             $activity_datetime = preg_replace($pattern, $replacement, $dateTime_device);
             $activity_datetime = date('Y-m-d H:i:s', strtotime($activity_datetime));
         } else {
-            $activity_datetime = date('Y-m-d H:i:s', strtotime($_REQUEST ['dateTime']));
+            $activity_datetime = date('Y-m-d H:i:s', 
+                                        strtotime($_REQUEST ['dateTime']));
         }
 
         $time_source = '';
@@ -554,7 +555,8 @@ class Api extends CI_Controller {
         
         if($imei_no!==''){
             $authorized = $this->app_model->appuser_imei_already_exist($imei_no, $app_id);
-            if (isset($app_general_setting->only_authorized) && $app_general_setting->only_authorized == 1 && !$authorized) {
+            if (isset($app_general_setting->only_authorized) && $app_general_setting->
+                                                                    only_authorized == 1 && !$authorized) {
                 $jsone_array = array(
                     'error' => 'You are not authorized'
                 );
@@ -613,7 +615,9 @@ class Api extends CI_Controller {
                 $captions_images[$key] = $v;
             } else if ($key == 'caption_sequence') {
                 $caption_sequence = urldecode($v);
-            } elseif ($key == 'form_id' || $key == 'row_key' || $key == 'security_key' || $key == "dateTime" || $key == "landing_page" || $key == "is_take_picture" || $key == 'form_icon_name') {
+            } elseif ($key == 'form_id' || $key == 'row_key' || $key == 'security_key' 
+            || $key == "dateTime" || $key == "landing_page" || $key == "is_take_picture" 
+            || $key == 'form_icon_name') {
                 
             } else {
 
@@ -636,7 +640,8 @@ class Api extends CI_Controller {
 
         if($form_id == '10601'){
             $match_exist_field_value = $record['cardnumber'];
-            //$activity_aready_exist = $this->db->get_where('zform_10601', array('cardnumber' => $match_exist_field_value))->row_array();
+            //$activity_aready_exist = $this->db->get_where('zform_10601', array('cardnumber' => 
+            //                                                          $match_exist_field_value))->row_array();
             $query=$this->db->query("select *
                                     from zform_10601
                                     where cardnumber ='$match_exist_field_value' and is_deleted='0'");
@@ -645,7 +650,8 @@ class Api extends CI_Controller {
             //echo $this->db->last_query().'=======';
             //echo count($activity_aready_exist);
             if(!empty($activity_aready_exist)) {
-               $this->form_results_model->update_mobile_activity($activity_inserted_id,array('error'=>  'This card number already entered.'));
+               $this->form_results_model->update_mobile_activity($activity_inserted_id,array('error'=>  
+                                                                                    'This card number already entered.'));
                $jsone_array = array(
                    'success' => 'This card number already uploaded and entered.'
                );
@@ -656,7 +662,8 @@ class Api extends CI_Controller {
 
         $warning_message = '';
         $app_map_view_setting = get_map_view_settings($app_id);
-        if(isset($app_map_view_setting->map_distance_mapping) && $app_map_view_setting->map_distance_mapping)//if Distance maping on then call this block
+        if(isset($app_map_view_setting->map_distance_mapping) && $app_map_view_setting->
+                                                                            map_distance_mapping)//if Distance maping on then call this block
         {
             $rectemp = $record; 
 
@@ -930,7 +937,8 @@ class Api extends CI_Controller {
                         $fields_count = $this->db->list_fields('zform_' . $form_id);
                         $fields_count = array_map('strtolower', $fields_count);
                         if(count($fields_count) < 90){
-                            $field = array($element => array('type' => 'VARCHAR', 'constraint' => 200, 'NULL' => TRUE));
+                            $field = array($element => array('type' => 'VARCHAR', 'constraint' => 
+                            200, 'NULL' => TRUE));
                             $this->dbforge->add_column('zform_' . $form_id, $field, $after_field);
                         }else
                         {
@@ -2024,8 +2032,7 @@ class Api extends CI_Controller {
 
         // this code is used for sending record to other domain
         if ($post_url) {
-            if ($form_id == '4575' && 
-                strpos($_SERVER ['SERVER_NAME'], 'dataplug.itu') !== false) {
+            if ($form_id == '4575' && strpos($_SERVER ['SERVER_NAME'], 'dataplug.itu') !== false) {
                 $tempary = array(
                     'imei_no' => $imei_no,
                     'image_url' => $add_images ['image'],
@@ -2103,8 +2110,7 @@ class Api extends CI_Controller {
         $lat = trim($loc [0]);
         $long = trim($loc [1]);
 
-        $url = "http://ucfinder.herokuapp.com/"
-        $url .= "ajax/region_finder.json?lat=$lat&long=$long";
+        $url = "http://ucfinder.herokuapp.com/ajax/region_finder.json?lat=$lat&long=$long";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -2131,8 +2137,7 @@ class Api extends CI_Controller {
         $loc = explode(',', $location);
         $lat = trim($loc [0]);
         $long = trim($loc [1]);
-        $url = "http://ucfinder.herokuapp.com/"
-        $url .= "ajax/town_finder.json?lat=$lat&long=$long";
+        $url = "http://ucfinder.herokuapp.com/ajax/town_finder.json?lat=$lat&long=$long";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -2159,8 +2164,7 @@ class Api extends CI_Controller {
         $loc = explode(',', $location);
         $lat = trim($loc [0]);
         $long = trim($loc [1]);
-        $url = "http://ucfinder.herokuapp.com/";
-        $url .= "ajax/distict_finder.json?lat=$lat&long=$long";
+        $url = "http://ucfinder.herokuapp.com/ajax/distict_finder.json?lat=$lat&long=$long";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -2202,8 +2206,7 @@ class Api extends CI_Controller {
     public function getoptionapi() {
         $api = $this->input->get('api');
         $secret = $this->input->get('secret');
-        $query = $this->db->query("SELECT * FROM api WHERE id = 
-        '$api' AND secret_key='$secret'");
+        $query = $this->db->query("SELECT * FROM api WHERE id = '$api' AND secret_key='$secret'");
         $api_data = $query->row_array();
         if ($api_data) {
             $csv_file_name = $api_data ['file_name'];
@@ -2232,17 +2235,14 @@ class Api extends CI_Controller {
                         if (!isset($existArray [$parent_optional_name])) {
                             $existArray [$parent_optional_name] = array();
                         }
-                        if (!in_array(strtolower(trim($data [$child_index])),
-                            $existArray [$parent_optional_name])) {
-                            array_push($existArray [$parent_optional_name],
-                            strtolower(trim($data [$child_index])));
+                        if (!in_array(strtolower(trim($data [$child_index])), $existArray [$parent_optional_name])) {
+                            array_push($existArray [$parent_optional_name], strtolower(trim($data [$child_index])));
                             $option_parent_value = '';
                             if ($parent_name != '') {
                                 $option_parent_value = trim($data [$parent_index]);
                             }
                             $option_display_value = $option_value = trim($data [$child_index]);
-                            if(isset($heading_row[$child_index+1]) && 
-                            $heading_row[$child_index+1]=='display_value_'.$heading_row[$child_index]){
+                            if(isset($heading_row[$child_index+1]) && $heading_row[$child_index+1]=='display_value_'.$heading_row[$child_index]){
                                 $option_display_value = trim($data[$child_index+1]);
                             }
                             $record = array(
@@ -2281,8 +2281,7 @@ class Api extends CI_Controller {
 
     // URL : http://www.dataplug.itu.edu.pk/api/syncDataRemotely?app_id=1293&security_token=1ae473a61dbe13cb9ec199e9c2361956&last_date_stamp=
     public function syncDataRemotely() {
-        if (isset($_REQUEST ['app_id']) && isset($_REQUEST ['last_date_stamp'])
-            && isset($_REQUEST ['security_token'])) {
+        if (isset($_REQUEST ['app_id']) && isset($_REQUEST ['last_date_stamp']) && isset($_REQUEST ['security_token'])) {
             $app_id = $_REQUEST ['app_id'];
             $last_date_stamp = $_REQUEST ['last_date_stamp'];
             $security_token = $_REQUEST ['security_token']; // 1ae473a61dbe13cb9ec199e9c2361956
@@ -2333,8 +2332,7 @@ class Api extends CI_Controller {
      */
 
     public function importDataFormBased() {
-        if (isset($_REQUEST ['local_form_id'])
-            && isset($_REQUEST ['remote_form_id'])) {
+        if (isset($_REQUEST ['local_form_id']) && isset($_REQUEST ['remote_form_id'])) {
             $local_form_id = $_REQUEST ['local_form_id'];
             $table_name = 'zform_' . $local_form_id;
             $remote_form_id = $_REQUEST ['remote_form_id'];
@@ -2345,8 +2343,7 @@ class Api extends CI_Controller {
                 $last_id = 0;
             }
 
-            $url = "http://godk.itu.edu.pk/api/exportDataFormBased?";
-            $url .= "form_id=$remote_form_id&last_id=$last_id";
+            $url = "http://godk.itu.edu.pk/api/exportDataFormBased?form_id=$remote_form_id&last_id=$last_id";
             $ch = curl_init() or die("Cannot init");
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
